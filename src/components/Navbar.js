@@ -28,7 +28,7 @@ export default function Navbar() {
             <li className="nav-item">
               <Link
                 className={`nav-link ${
-                  location.pathname == "/" ? "active" : ""
+                  location.pathname === "/" ? "active" : ""
                 }`}
                 aria-current="page"
                 to="/"
@@ -39,7 +39,7 @@ export default function Navbar() {
             <li className="nav-item">
               <Link
                 className={`nav-link ${
-                  location.pathname == "/about" ? "active" : ""
+                  location.pathname === "/about" ? "active" : ""
                 }`}
                 to="about"
               >
@@ -54,7 +54,7 @@ export default function Navbar() {
               placeholder="Search"
               aria-label="Search"
             />
-            <button className="btn btn-outline-success" type="submit">
+            <button className="btn btn-outline-info" type="submit">
               Search
             </button>
           </form>
