@@ -23,8 +23,6 @@ const NoteState = (props) => {
   // add note
   const addNote = async (note) => {
     let { title, description, tag } = note;
-    console.log(note);
-    console.log("adding note");
     const response = await fetch(`${host}/api/notes/addNote`, {
       method: "POST",
       headers: {
@@ -34,16 +32,9 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    note = {
-      _id: "631d8123c9c0220ca06d3ab8",
-      user: "631ae4869cde3f8a122a1b1c",
-      title: note.title,
-      description: note.description,
-      tag: "personal",
-      timestamp: "2022-09-11T06:33:07.208Z",
-      __v: 0,
-    };
-    setNotes(notes.concat(note));
+
+    let responeNote = await response.json();
+    setNotes(notes.concat(responeNote));
   };
 
   // edit note
@@ -71,7 +62,6 @@ const NoteState = (props) => {
 
   // delete note
   const deleteNote = async (id) => {
-    console.log("deleting note " + id);
     const response = await fetch(`${host}/api/notes/deleteNote/${id}`, {
       method: "DELETE",
       headers: {
