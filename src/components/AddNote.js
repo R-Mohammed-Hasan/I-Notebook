@@ -29,26 +29,30 @@ export default function AddNote() {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="title" className="form-label">
+          <label htmlFor="description" className="form-label">
           Note Description
           </label>
           <input
             type="text"
             className="form-control"
             id="description"
+            name="description"
             onChange={onChange}
           />
         </div>
-        <div className="mb-3 form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="description"
-          />
-          <label className="form-check-label" htmlFor="exampleCheck1">
-            Check me out
+        <div className="mb-3">
+          <label htmlFor="description" className="form-label">
+          Tag
           </label>
+          <input
+            type="text"
+            className="form-control"
+            id="tag"
+            name="tag"
+            onChange={onChange}
+          />
         </div>
+
         <button type="submit" className="btn btn-primary" onClick={onSubmitHandler}>
           Submit
         </button>
