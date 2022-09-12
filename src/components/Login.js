@@ -1,9 +1,9 @@
 import React,{useState} from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
 
-  let history = useHistory();
+  let navigate = useNavigate();
   const [credentials, setCredentials] = useState({email: '', password: ''});
 
   const onChange = (event) => {
@@ -23,7 +23,7 @@ export default function Login() {
     console.log(json);
     if(json.authToken){
       localStorage.setItem("token",json.authToken);
-      history.push("/");
+      navigate("/");
     }else{
       alert('Invalid credentials');
     }
