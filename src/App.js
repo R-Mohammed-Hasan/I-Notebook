@@ -13,7 +13,6 @@ import Alert from "./components/Alert";
 
 
 function App() {
-
   const [alert, setAlert] = useState(null);
 
   return (

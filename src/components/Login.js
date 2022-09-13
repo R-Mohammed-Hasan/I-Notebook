@@ -33,7 +33,7 @@ export default function Login() {
 
   return (
     <>
-      <h2>Login</h2>
+      <h2>Login to i-Notebook...!</h2>
       <form className="mt-5" onSubmit={onSubmitHandler}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">

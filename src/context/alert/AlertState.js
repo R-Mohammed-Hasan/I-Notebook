@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react";
+import React from "react";
 import AlertContext from "./AlertContext";
 
 export default function AlertState(props) {

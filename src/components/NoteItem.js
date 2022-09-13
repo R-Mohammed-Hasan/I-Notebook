@@ -18,7 +18,7 @@ export default function NoteItem(props) {
               <i className="fa-solid fa-pen-to-square mx-2 icons" onClick={() => {updateNote(note)}}></i>
               <i className="fa-solid fa-trash mx-2 icons" onClick={()=>{
                 deleteNote(note._id);
-                showAlert("Deleted npte successfully..!","success");
+                showAlert("Deleted note successfully..!","success");
                 }}></i>
             </div>
           </div>

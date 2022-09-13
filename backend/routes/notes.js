@@ -7,6 +7,7 @@ const { route } = require('./auth');
 
 // Finding all notes of a particular user - "/api/notes/fetchAllNotes"
 router.get('/fetchAllNotes', fetchUser, async(req, res) => {
+    // calls fetchUser and then runs below code
     try {
         const notes = await Note.find({ user: req.user.id });
         res.json(notes);
@@ -21,6 +22,7 @@ router.post('/addNote', fetchUser, [
     body('title', 'Enter a valid title').isLength({ min: 3 }),
     body('description', 'Enter a valid description').isLength({ min: 5 }),
 ], async(req, res) => {
+    // calls fetchUser and then runs below code
     try {
         const { title, description, tag } = req.body;
         // error checking
@@ -41,6 +43,7 @@ router.post('/addNote', fetchUser, [
 // Update a note put - "/api/notes/updateNote"
 
 router.put('/updateNote/:id', fetchUser, async(req, res) => {
+    // calls fetchUser and then runs below code
     try {
         const { title, description, tag } = req.body;
         let newNote = {};
@@ -63,8 +66,8 @@ router.put('/updateNote/:id', fetchUser, async(req, res) => {
 })
 
 // Delete a note by its ID using delete - '/api/notes/deleteNote/:id'
-
 router.delete('/deleteNote/:id', fetchUser, async(req, res) => {
+    // calls fetchUser and then runs below code
     try {
         let note = await Note.findById(req.params.id);
         if (!note) { res.status(404).send("Note not found") }

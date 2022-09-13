@@ -3,16 +3,22 @@ import NoteContext from "./../context/notes/NoteContext";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
 import AlertContext from './../context/alert/AlertContext'
+import { useNavigate } from "react-router-dom";
 
 
 export default function Notes() {
 
   let showAlert = useContext(AlertContext);
+  let navigate = useNavigate();
 
   // to show all notes when page refreshes
   let { notes, getAllNotes, editNote } = useContext(NoteContext);
   useEffect(() => {
-    getAllNotes();
+    if(localStorage.getItem('token')){
+      getAllNotes();
+    }else{
+      navigate("/login");
+    }
   }, []);
 
   // modal opening fn; for editing a note
@@ -133,7 +139,7 @@ export default function Notes() {
       <div className="row my-4">
         <h2>Your Notes</h2>
         <div className="container">
-          {notes.length == 0 && "No notes to display" }
+          {notes.length === 0 && "No notes to display" }
         </div>
         {notes.map((note) => {
           return (
