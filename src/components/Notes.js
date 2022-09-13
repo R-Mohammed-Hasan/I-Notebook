@@ -1,11 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import NoteContext from "./../context/notes/NoteContext";
-import Alert from "./Alert";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
-import { useRef } from "react";
+import AlertContext from './../context/alert/AlertContext'
+
 
 export default function Notes() {
+
+  let showAlert = useContext(AlertContext);
+
   // to show all notes when page refreshes
   let { notes, getAllNotes, editNote } = useContext(NoteContext);
   useEffect(() => {
@@ -17,10 +20,10 @@ export default function Notes() {
   let closeRef = useRef(0);
   const [note, setNote] = useState({id:"",etitle:"",edescription:"",etag:""});
 
+  // setting the values of particular note in modal when use click on edit icon
   const updateNote = (currentNote) => {
     modalRef.current.click();
     setNote({id: currentNote._id,etitle: currentNote.title,edescription: currentNote.description,etag: currentNote.tag});
-
   };
 
   // editing note
@@ -28,13 +31,14 @@ export default function Notes() {
     event.preventDefault();
     editNote(note.id,note.etitle,note.edescription,note.etag);
     closeRef.current.click();
+    showAlert("Updated note successfully..!");
   };
   const onChange = (event) => {
     setNote({ ...note, [event.target.name]: event.target.value });
   };
 
   return (
-    <>
+    <div className="container">
       <AddNote />
       <button
         type="button"
@@ -137,6 +141,6 @@ export default function Notes() {
           );
         })}
       </div>
-    </>
+    </div>
   );
 }

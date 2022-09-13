@@ -1,7 +1,9 @@
-import React,{useState} from "react";
+import React,{useState, useContext} from "react";
 import { useNavigate } from "react-router-dom";
+import AlertContext from './../context/alert/AlertContext'
 
 export default function Login() {
+  let showAlert = useContext(AlertContext);
 
   let navigate = useNavigate();
   const [credentials, setCredentials] = useState({email: '', password: ''});
@@ -20,15 +22,15 @@ export default function Login() {
       body: JSON.stringify(credentials)
     });
     let json = await response.json();
-    console.log(json);
     if(json.authToken){
       localStorage.setItem("token",json.authToken);
       navigate("/");
+      showAlert("Logged in successfully..!","success");
     }else{
-      alert('Invalid credentials');
+      showAlert("Invalid credentials","danger");
     }
-
   }
+
   return (
     <>
       <h2>Login</h2>
