@@ -1,13 +1,17 @@
 import React, { useContext, useState } from "react";
 import NoteContext from "./../context/notes/NoteContext";
+import AlertContext from './../context/alert/AlertContext'
 
 export default function AddNote() {
+  let showAlert = useContext(AlertContext);
+
   let { addNote } = useContext(NoteContext);
   const [note, setNote] = useState({title:"",description:"",tag:""});
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
     addNote(note);
+    showAlert("Added note successfully..!","success");
     setNote({title:"",description:"",tag:""});
 
   }

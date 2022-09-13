@@ -26,12 +26,12 @@ export default function Notes() {
     setNote({id: currentNote._id,etitle: currentNote.title,edescription: currentNote.description,etag: currentNote.tag});
   };
 
-  // editing note
+  // editing note after submitting the form(modal)
   const onSubmitHandler = (event) => {
     event.preventDefault();
     editNote(note.id,note.etitle,note.edescription,note.etag);
     closeRef.current.click();
-    showAlert("Updated note successfully..!");
+    showAlert("Updated note successfully..!","success");
   };
   const onChange = (event) => {
     setNote({ ...note, [event.target.name]: event.target.value });
