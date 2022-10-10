@@ -13,6 +13,7 @@ export default function Notes() {
 
   // to show all notes when page refreshes
   let { notes, getAllNotes, editNote } = useContext(NoteContext);
+
   useEffect(() => {
     if(localStorage.getItem('token')){
       getAllNotes();
