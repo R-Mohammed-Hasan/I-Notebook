@@ -68,6 +68,7 @@ router.delete('/deleteNote/:id', fetchUser, async(req, res) => {
     try {
         let note = await Note.findById(req.params.id);
         if (!note) { res.status(404).send("Note not found") }
+        // not allow to delete others notes
         if (note.user.toString() !== req.user.id) {
             res.status(401).send("Not Authorized to do this");
         }
