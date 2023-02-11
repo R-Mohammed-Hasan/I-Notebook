@@ -1,9 +1,66 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const Signup = () => {
+const Signup = (props) => {
+
+
+    const [credentials, setCredentials] = useState({name:"", email: "", password: "", confirmPassword: ""}) 
+    let navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch("http://localhost:7070/api/auth/create", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name: credentials.name, email: credentials.email, password: credentials.password})
+        });
+        const json = await response.json()
+        console.log(json);
+        if (json.authToken){
+            // Save the auth token and redirect
+            localStorage.setItem('authToken', json.authToken); 
+            navigate("/");
+            props.showAlert("Signed up successfully", "success");
+        }
+        else{
+            props.showAlert(json.error, "danger");
+        }
+    }
+
+    const onChange = (e)=>{
+        setCredentials({...credentials, [e.target.name]: e.target.value})
+    }
+
     return (
         <div>
-            I am signup
+            <h2 className='my-4'>SignUp with I-Notebook</h2>
+            <hr />
+            <form  onSubmit={handleSubmit}>
+            <div className="mb-3">
+                    <label htmlFor="name" className="form-label">Your Name</label>
+                    <input type="test" className="form-control" value={credentials.name} onChange={onChange} name="name" id="name" />
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="email" className="form-label">Email address</label>
+                    <input type="email" className="form-control"  value={credentials.email} onChange={onChange} id="email" name="email" aria-describedby="emailHelp" />
+                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                
+                <div className="mb-3">
+                    <label htmlFor="password" className="form-label">Password</label>
+                    <input type="password" className="form-control" value={credentials.password} onChange={onChange} name="password" id="password" />
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                    <input type="password" className="form-control" value={credentials.confirmPassword} onChange={onChange} name="confirmPassword" id="confirmPassword" />
+                </div>
+
+                <button type="submit" disabled={credentials.email.length < 7 || credentials.password.length < 5 || credentials.password != credentials.confirmPassword}  className="btn btn-primary">Submit</button>
+            </form>
         </div>
     )
 }
